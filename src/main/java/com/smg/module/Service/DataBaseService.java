@@ -20,4 +20,7 @@ public class DataBaseService {
         }
         return fileContext;
     }
+    public Boolean uploadFileMd(String fileContext, String fileUrl){
+        return mongoService.insertFile(fileUrl, fileContext, "md");
+    }
 }

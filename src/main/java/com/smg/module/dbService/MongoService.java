@@ -25,7 +25,15 @@ public class MongoService {
         }
         return fileLoadTable;
     }
-    public Boolean insertFile(String fileUrl, String fileContext){
-        return false;
+    public Boolean insertFile(String fileUrl, String fileContext, String fileType){
+        fileLoadTable.setFileUrl(fileUrl);
+        fileLoadTable.setFileType(fileType);
+        fileLoadTable.setFileContext(fileContext);
+        try{
+            mongoTemplate.insert(fileLoadTable);
+        }catch (Exception e){
+            return false;
+        }
+        return true;
     }
 }

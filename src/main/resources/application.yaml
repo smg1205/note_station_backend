@@ -3,13 +3,13 @@ server:
 spring:
   application:
     name: note_station
-#  datasource:
-#    druid:
-#      test-while-idle: false
-#    url: jdbc:mysql://192.168.183.128:10086/note_station
-#    username: root
-#    password: root
-#    driver-class-name: com.mysql.cj.jdbc.Driver
+  datasource:
+    druid:
+      test-while-idle: false
+    url: jdbc:mysql://192.168.183.128:10086/note_station
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
   data:
     mongodb:
       uri: mongodb://192.168.183.128:27777/fileData
