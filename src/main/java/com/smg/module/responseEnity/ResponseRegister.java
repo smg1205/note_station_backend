@@ -1,4 +1,4 @@
-package com.smg.module.requestEnity;
+package com.smg.module.responseEnity;
 
 import lombok.Data;
 import org.springframework.stereotype.Service;

@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 @Data
 @Service
 public class RequestRegister {
-    private String userName;
-    private String password;
     private String email;
-    private String eCode;
+    private String username;
+    private String password;
+    private String checkPassword;
 }

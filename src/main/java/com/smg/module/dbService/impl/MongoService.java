@@ -1,4 +1,4 @@
-package com.smg.module.dbService;
+package com.smg.module.dbService.impl;
 
 import com.smg.module.database.FileLoadTable;
 import org.springframework.beans.factory.annotation.Autowired;
