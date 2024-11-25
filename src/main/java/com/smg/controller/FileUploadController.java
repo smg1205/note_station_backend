@@ -1,6 +1,10 @@
 package com.smg.controller;
 
+import cn.hutool.core.util.HashUtil;
+import cn.hutool.crypto.SecureUtil;
 import com.smg.module.Service.DataBaseService;
+import com.smg.utils.TimeUtil;
+import com.smg.utils.TokenUtil;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +16,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Date;
 
 import static com.smg.utils.GetTypeUtil.jdType;
 
@@ -23,9 +28,10 @@ public class FileUploadController {
     @Autowired
     private DataBaseService dataBaseService;
     @PostMapping("/upload")
-    public String uploadFile(@RequestParam("file") MultipartFile file) throws IOException {
+    public String uploadFile(@RequestParam("file") MultipartFile file, @RequestParam("token") String token) throws IOException {
         InputStream inputStream = file.getInputStream();
         String fileName = file.getOriginalFilename();
+        String username = TokenUtil.getUserName(token);
         if (fileName != null && !jdType(fileName)) {
             return "ERROR";
         }
@@ -35,15 +41,23 @@ public class FileUploadController {
             while ((line = reader.readLine()) != null) {
                 fileContent.append(line).append(System.lineSeparator());
             }
-            System.out.println("File content: " + fileContent);
-            dataBaseService.uploadFileMd(fileContent.toString(), "text");
+            String time = TimeUtil.getTime(new Date().getTime());
+            String fileUrl = SecureUtil.md5(time);
+            Boolean jd = dataBaseService.uploadFileMd(fileContent.toString(), fileUrl);
+            if(jd){
+                if(dataBaseService.updateUserData(fileUrl,fileName, username)){
+                    return "SUCCESS";
+                }
+                // 415efb0d5889e4ae599f00d47da02a67
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "SUCCESS";
+        return "FAIL";
     }
     @GetMapping("/load/{fileUrl}")
     public String loadFile(@PathVariable("fileUrl") String fileUrl){
+        dataBaseService.addViewCount(fileUrl);
         return dataBaseService.getFileMd(fileUrl);
     }
 }

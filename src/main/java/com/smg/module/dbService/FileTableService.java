@@ -1,4 +1,4 @@
-package com.smg.module.Service;
+package com.smg.module.dbService;
 
 import com.smg.module.domain.FileTable;
 import com.baomidou.mybatisplus.extension.service.IService;

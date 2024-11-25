@@ -7,11 +7,13 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+import org.springframework.stereotype.Service;
 
 /**
  * 存储文件信息的表
  * @TableName file_table
  */
+@Service
 @TableName(value ="file_table")
 @Data
 public class FileTable implements Serializable {
@@ -45,6 +47,12 @@ public class FileTable implements Serializable {
     @TableField(value = "viewCount")
     private Integer viewCount;
 
+    /**
+     * 文件所属人
+     */
+    @TableField(value = "owner")
+    private String owner;
+
     @TableField(exist = false)
     private static final long serialVersionUID = 1L;
 
@@ -64,7 +72,8 @@ public class FileTable implements Serializable {
             && (this.getFileUrl() == null ? other.getFileUrl() == null : this.getFileUrl().equals(other.getFileUrl()))
             && (this.getFilename() == null ? other.getFilename() == null : this.getFilename().equals(other.getFilename()))
             && (this.getFileCreateTime() == null ? other.getFileCreateTime() == null : this.getFileCreateTime().equals(other.getFileCreateTime()))
-            && (this.getViewCount() == null ? other.getViewCount() == null : this.getViewCount().equals(other.getViewCount()));
+            && (this.getViewCount() == null ? other.getViewCount() == null : this.getViewCount().equals(other.getViewCount()))
+            && (this.getOwner() == null ? other.getOwner() == null : this.getOwner().equals(other.getOwner()));
     }
 
     @Override
@@ -76,6 +85,7 @@ public class FileTable implements Serializable {
         result = prime * result + ((getFilename() == null) ? 0 : getFilename().hashCode());
         result = prime * result + ((getFileCreateTime() == null) ? 0 : getFileCreateTime().hashCode());
         result = prime * result + ((getViewCount() == null) ? 0 : getViewCount().hashCode());
+        result = prime * result + ((getOwner() == null) ? 0 : getOwner().hashCode());
         return result;
     }
 
@@ -90,6 +100,7 @@ public class FileTable implements Serializable {
         sb.append(", filename=").append(filename);
         sb.append(", fileCreateTime=").append(fileCreateTime);
         sb.append(", viewCount=").append(viewCount);
+        sb.append(", owner=").append(owner);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

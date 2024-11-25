@@ -7,11 +7,13 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+import org.springframework.stereotype.Service;
 
 /**
  * 存储用户基本信息的表
  * @TableName user_table
  */
+@Service
 @TableName(value ="user_table")
 @Data
 public class UserTable implements Serializable {

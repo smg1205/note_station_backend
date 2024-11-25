@@ -1,8 +1,8 @@
-package com.smg.module.Service.impl;
+package com.smg.module.dbService.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.smg.module.domain.UserTable;
-import com.smg.module.Service.UserTableService;
+import com.smg.module.dbService.UserTableService;
 import com.smg.mapper.UserTableMapper;
 import org.springframework.stereotype.Service;
 

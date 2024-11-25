@@ -1,8 +1,8 @@
-package com.smg.module.Service.impl;
+package com.smg.module.dbService.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.smg.module.domain.FileTable;
-import com.smg.module.Service.FileTableService;
+import com.smg.module.dbService.FileTableService;
 import com.smg.mapper.FileTableMapper;
 import org.springframework.stereotype.Service;
 
