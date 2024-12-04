@@ -2,6 +2,7 @@ package com.smg.controller;
 
 
 import com.smg.module.Service.DataBaseService;
+import com.smg.module.request.RequestToken;
 import com.smg.module.responseEnity.ResponseList;
 import com.smg.utils.TokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,15 @@ public class DataController {
     DataBaseService dataBaseService;
     @Autowired
     ResponseList responseList;
-    @PostMapping("/{token}")
-    public ResponseList getList(@RequestBody String token){
-        String username = TokenUtil.getUserName(token);
+    @PostMapping("/dataList")
+    public ResponseList getList(@RequestBody RequestToken token){
+        String username = TokenUtil.getUserName(token.getToken());
+        System.out.println(username);
         responseList.setIl(dataBaseService.getUserList(username));
         if(responseList.getIl() != null){
             responseList.setReqMsg("获取成功");
         }
+        System.out.println(responseList);
         return responseList;
     }
 }

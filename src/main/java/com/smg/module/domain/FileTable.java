@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import java.io.Serializable;
 import java.util.Date;
 import lombok.Data;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 /**
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
  * @TableName file_table
  */
 @Service
+@Scope("prototype")
 @TableName(value ="file_table")
 @Data
 public class FileTable implements Serializable {

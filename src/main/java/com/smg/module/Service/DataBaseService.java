@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,8 +25,7 @@ public class DataBaseService {
     private MongoService mongoService;
     @Autowired
     private UserTableService userTableService;
-    @Autowired
-    private FileTable insertFile;
+
     @Autowired
     private FileTable addFile;
     @Autowired
@@ -34,6 +34,7 @@ public class DataBaseService {
     private List<ResponseItem> returnList;
     public List<ResponseItem> getUserList(String userName){
         QueryWrapper<FileTable> qw1 = new QueryWrapper<>();
+        returnList = new ArrayList<>();
         qw1.eq("owner", userName);
         List<FileTable> li = fileTableService.list(qw1);
         for(FileTable f : li) {
@@ -41,11 +42,14 @@ public class DataBaseService {
             r1.setCreateTime(String.valueOf(f.getFileCreateTime()));
             r1.setFilename(f.getFilename());
             r1.setFileUrl(f.getFileUrl());
-            returnList.add(r1);
+            if(r1.getFilename() != null && r1.getFileUrl() != null && r1.getCreateTime() != null){
+                returnList.add(r1);
+            }
         }
         return returnList;
     }
     public Boolean updateUserData(String fileUrl, String filename,String username){
+        FileTable insertFile = new FileTable();
         insertFile.setFilename(filename);
         insertFile.setFileUrl(fileUrl);
         insertFile.setOwner(username);
