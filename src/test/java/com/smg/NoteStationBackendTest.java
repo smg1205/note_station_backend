@@ -27,7 +27,8 @@ class NoteStationBackendTest {
     }
     @Test
     void test1(){
-
+        String username = TokenUtil.getUserName("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6IkVseXNtZyIsInBhc3N3b3JkIjoiU0hJbGluZ2tlZGFvNTQ2MiIsImV4cCI6MTczMzM1OTQ0M30.Z-rqHhBK6jBWxGyfRqJpTx6zYiV1qiqL7xK0HRktgpc");
+        System.out.println(username);
     }
 
 }

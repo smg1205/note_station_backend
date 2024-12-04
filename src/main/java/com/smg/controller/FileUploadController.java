@@ -32,6 +32,7 @@ public class FileUploadController {
         InputStream inputStream = file.getInputStream();
         String fileName = file.getOriginalFilename();
         String username = TokenUtil.getUserName(token);
+
         if (fileName != null && !jdType(fileName)) {
             return "ERROR";
         }
@@ -43,12 +44,13 @@ public class FileUploadController {
             }
             String time = TimeUtil.getTime(new Date().getTime());
             String fileUrl = SecureUtil.md5(time);
-            Boolean jd = dataBaseService.uploadFileMd(fileContent.toString(), fileUrl);
+            Boolean jd = dataBaseService.updateUserData(fileUrl,fileName, username);
             if(jd){
-                if(dataBaseService.updateUserData(fileUrl,fileName, username)){
+                if(dataBaseService.uploadFileMd(fileContent.toString(), fileUrl)){
                     return "SUCCESS";
                 }
-                // 415efb0d5889e4ae599f00d47da02a67
+            }else{
+                System.out.println("文件已存在");
             }
         } catch (IOException e) {
             e.printStackTrace();

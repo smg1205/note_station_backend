@@ -1,6 +1,7 @@
 package com.smg.module.dbService.impl;
 
 import com.smg.module.database.FileLoadTable;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.query.Criteria;
@@ -26,12 +27,14 @@ public class MongoService {
         return fileLoadTable;
     }
     public Boolean insertFile(String fileUrl, String fileContext, String fileType){
+        fileLoadTable.setId(String.valueOf(ObjectId.get()));
         fileLoadTable.setFileUrl(fileUrl);
         fileLoadTable.setFileType(fileType);
         fileLoadTable.setFileContext(fileContext);
         try{
             mongoTemplate.insert(fileLoadTable);
         }catch (Exception e){
+            System.out.println(e);
             return false;
         }
         return true;
